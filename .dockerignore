@@ -1,0 +1,22 @@
+# Build outputs
+bin/
+obj/
+packages/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+
+# Git
+.git/
+.gitignore
+
+# Test results
+TestResults/
+*.trx
+
+# OS files
+.DS_Store
+Thumbs.db
