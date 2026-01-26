@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/tests/">
+    <Project Path="tests/Bdaya.Abp.EventBus.PubSub.Tests/Bdaya.Abp.EventBus.PubSub.Tests.csproj" />
+  </Folder>
+  <Project Path="src/Bdaya.Abp.EventBus.PubSub.csproj" />
+</Solution>

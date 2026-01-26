@@ -47,7 +47,7 @@ jobs:
             @semantic-release/github
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore src/Bdaya.Abp.EventBus.PubSub.csproj
 
       - name: Run semantic-release
         env:
@@ -83,13 +83,13 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore src/Bdaya.Abp.EventBus.PubSub.csproj
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build src/Bdaya.Abp.EventBus.PubSub.csproj --configuration Release --no-restore
 
       - name: Pack
-        run: dotnet pack --configuration Release --no-build --output ./nupkg
+        run: dotnet pack src/Bdaya.Abp.EventBus.PubSub.csproj --configuration Release --no-build --output ./nupkg
 
       - name: Publish to NuGet
         run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
