@@ -14,7 +14,6 @@
 
   <PropertyGroup>
     <PackageId>Bdaya.Abp.EventBus.PubSub</PackageId>
-    <Version>1.0.0</Version>
     <Authors>Bdaya</Authors>
     <Description>Google Cloud Pub/Sub integration for ABP Distributed Event Bus</Description>
     <PackageTags>abp;eventbus;pubsub;google-cloud;distributed-events;messaging</PackageTags>
