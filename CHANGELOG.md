@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/compare/v1.0.0...v1.1.0) (2026-01-26)
+
+
+### Features
+
+* enhance authentication options in Pub/Sub configuration ([b6f5778](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/commit/b6f577837c671b6c3d3d6ce52ab09a35dcb53fbb))
+
 # 1.0.0 (2026-01-26)
 
 
