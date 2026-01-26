@@ -9,8 +9,13 @@ namespace Bdaya.Abp.EventBus.PubSub;
 public interface IPubSubDistributedEventBus : IDistributedEventBus
 {
     /// <summary>
-    /// Initializes the Pub/Sub event bus, creating topic and subscription if needed,
-    /// and starts listening for messages.
+    /// Initializes the Pub/Sub event bus asynchronously.
+    /// Creates topic and subscription if needed, and starts listening for messages.
     /// </summary>
     Task InitializeAsync();
+
+    /// <summary>
+    /// Stops the Pub/Sub event bus.
+    /// </summary>
+    Task StopAsync();
 }
