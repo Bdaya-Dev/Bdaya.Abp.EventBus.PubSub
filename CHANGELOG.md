@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/compare/v2.0.0...v2.0.1) (2026-02-22)
+
+
+### Bug Fixes
+
+* **ci:** restore Release assets before no-restore build ([971f911](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/commit/971f9110894807170b038f00f32ec35c0ffe8535))
+
 # [2.0.0](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/compare/v1.1.0...v2.0.0) (2026-02-22)
 
 
