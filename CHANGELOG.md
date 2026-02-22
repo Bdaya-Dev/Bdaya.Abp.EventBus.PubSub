@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/compare/v2.0.1...v2.0.2) (2026-02-22)
+
+
+### Bug Fixes
+
+* **ci:** pin .NET SDK via global.json for deterministic builds ([929c401](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/commit/929c401370b71b4fec05ab01c3ba0ba94052755d))
+
 ## [2.0.1](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/compare/v2.0.0...v2.0.1) (2026-02-22)
 
 
