@@ -15,10 +15,9 @@ public class PubSubEmulatorFixture : IAsyncLifetime
     public string EmulatorHost => $"localhost:{HostPort}";
     public int HostPort { get; private set; }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
-        _container = new ContainerBuilder()
-            .WithImage("gcr.io/google.com/cloudsdktool/cloud-sdk:emulators")
+        _container = new ContainerBuilder("gcr.io/google.com/cloudsdktool/cloud-sdk:emulators")
             .WithCommand("gcloud", "beta", "emulators", "pubsub", "start", "--host-port=0.0.0.0:8085", $"--project={ProjectId}")
             .WithPortBinding(8085, true)
             .WithWaitStrategy(Wait.ForUnixContainer().UntilMessageIsLogged("Server started"))
@@ -55,7 +54,7 @@ public class PubSubEmulatorFixture : IAsyncLifetime
         throw new TimeoutException($"Emulator at localhost:{HostPort} did not become available within {timeout.TotalSeconds} seconds");
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (_container != null)
         {

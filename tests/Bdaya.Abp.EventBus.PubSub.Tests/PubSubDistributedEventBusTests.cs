@@ -20,7 +20,7 @@ public class PubSubDistributedEventBusTests : IClassFixture<PubSubEmulatorFixtur
         _fixture = fixture;
     }
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         // Configure the module to use the emulator BEFORE creating the ABP application
         PubSubTestModule.EmulatorHost = _fixture.EmulatorHost;
@@ -34,10 +34,10 @@ public class PubSubDistributedEventBusTests : IClassFixture<PubSubEmulatorFixtur
         TestOrderCompletedHandler.Reset();
 
         // Give the event bus time to initialize
-        await Task.Delay(500);
+        await Task.Delay(500, TestContext.Current.CancellationToken);
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         if (_application != null)
         {
@@ -68,7 +68,10 @@ public class PubSubDistributedEventBusTests : IClassFixture<PubSubEmulatorFixtur
         await eventBus.PublishAsync(eventData);
 
         // Assert - Wait for the event to be received (with timeout)
-        var receivedEvent = await WaitForEventAsync(TestOrderCreatedHandler.WaitHandle!, TimeSpan.FromSeconds(10));
+        var receivedEvent = await WaitForEventAsync(
+            TestOrderCreatedHandler.WaitHandle!,
+            TimeSpan.FromSeconds(10),
+            TestContext.Current.CancellationToken);
 
         receivedEvent.ShouldNotBeNull();
         receivedEvent.OrderId.ShouldBe(orderId);
@@ -96,7 +99,7 @@ public class PubSubDistributedEventBusTests : IClassFixture<PubSubEmulatorFixtur
         }
 
         // Assert - Wait for all events
-        await Task.Delay(3000); // Give time for all events to be processed
+        await Task.Delay(3000, TestContext.Current.CancellationToken); // Give time for all events to be processed
 
         TestOrderCreatedHandler.ReceivedEvents.Count.ShouldBeGreaterThanOrEqualTo(3);
     }
@@ -124,7 +127,7 @@ public class PubSubDistributedEventBusTests : IClassFixture<PubSubEmulatorFixtur
         });
 
         // Assert
-        await Task.Delay(2000);
+        await Task.Delay(2000, TestContext.Current.CancellationToken);
 
         TestOrderCreatedHandler.ReceivedEvents.ShouldContain(e => e.OrderId == orderId);
         TestOrderCompletedHandler.ReceivedEvents.ShouldContain(e => e.OrderId == orderId);
@@ -151,9 +154,9 @@ public class PubSubDistributedEventBusTests : IClassFixture<PubSubEmulatorFixtur
         eventBus.ShouldBeOfType<PubSubDistributedEventBus>();
     }
 
-    private static async Task<T?> WaitForEventAsync<T>(TaskCompletionSource<T> tcs, TimeSpan timeout)
+    private static async Task<T?> WaitForEventAsync<T>(TaskCompletionSource<T> tcs, TimeSpan timeout, CancellationToken cancellationToken)
     {
-        var delayTask = Task.Delay(timeout);
+        var delayTask = Task.Delay(timeout, cancellationToken);
         var completedTask = await Task.WhenAny(tcs.Task, delayTask);
 
         if (completedTask == delayTask)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Google.Apis.Auth.OAuth2;
 using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
 using Grpc.Core;
@@ -203,9 +204,13 @@ public class PubSubDistributedEventBus : DistributedEventBusBase, IPubSubDistrib
             builder.Endpoint = connection.EmulatorHost;
             builder.ChannelCredentials = Grpc.Core.ChannelCredentials.Insecure;
         }
-        else if (!string.IsNullOrEmpty(connection.CredentialsPath))
+        else
         {
-            builder.CredentialsPath = connection.CredentialsPath;
+            var credential = GetCredential(connection);
+            if (credential != null)
+            {
+                builder.GoogleCredential = credential;
+            }
         }
 
         _subscriberClient = await builder.BuildAsync();
@@ -445,9 +450,13 @@ public class PubSubDistributedEventBus : DistributedEventBusBase, IPubSubDistrib
             builder.Endpoint = connection.EmulatorHost;
             builder.ChannelCredentials = Grpc.Core.ChannelCredentials.Insecure;
         }
-        else if (!string.IsNullOrEmpty(connection.CredentialsPath))
+        else
         {
-            builder.CredentialsPath = connection.CredentialsPath;
+            var credential = GetCredential(connection);
+            if (credential != null)
+            {
+                builder.GoogleCredential = credential;
+            }
         }
 
         var publisherClient = await builder.BuildAsync();
@@ -543,6 +552,26 @@ public class PubSubDistributedEventBus : DistributedEventBusBase, IPubSubDistrib
         }
 
         return false;
+    }
+
+    private static GoogleCredential? GetCredential(PubSubConnectionConfiguration connection)
+    {
+        if (connection.Credential != null)
+        {
+            return connection.Credential;
+        }
+
+        if (!string.IsNullOrEmpty(connection.CredentialsJson))
+        {
+            return CredentialFactory.FromJson<GoogleCredential>(connection.CredentialsJson);
+        }
+
+        if (!string.IsNullOrEmpty(connection.CredentialsPath))
+        {
+            return CredentialFactory.FromFile<GoogleCredential>(connection.CredentialsPath);
+        }
+
+        return null;
     }
 
     public async Task StopAsync()
