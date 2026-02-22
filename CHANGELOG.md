@@ -1,3 +1,11 @@
+## [2.0.3](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/compare/v2.0.2...v2.0.3) (2026-02-22)
+
+
+### Bug Fixes
+
+* **ci:** keep xUnit v3 apphost and build without --no-restore ([eece6ba](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/commit/eece6ba1663124759a7cc08251c7eccad07f749b))
+* **tests:** ensure OutputType and UseAppHost are set for test project ([4a13be2](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/commit/4a13be2ae754cc05aac5e5c2b183a0faf7f6019c))
+
 ## [2.0.2](https://github.com/Bdaya-Dev/Bdaya.Abp.EventBus.PubSub/compare/v2.0.1...v2.0.2) (2026-02-22)
 
 
