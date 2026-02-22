@@ -24,7 +24,7 @@ jobs:
         with:
           dotnet-version: "10.0.x"
 
-      - run: dotnet restore
+      - run: dotnet restore -p:Configuration=Release
         name: Restore dependencies
 
       - name: Build
